@@ -138,3 +138,19 @@
 
 23. SELECT id_categoria, MAX(precio_venta) FROM producto WHERE id_categoria = '4'
     GROUP BY id_categoria
+
+
+-- IVA
+24.SELECT nombre, precio_venta, ROUND(precio_venta*1.19,2) AS precio_iva FROM 
+   producto
+
+--Descuento
+25. SELECT nombre, precio_venta, precio_venta-3 AS precio_dto FROM producto
+
+
+-- NOW() (diadehoy)
+26. SELECT nombre_usuario, id_persona, creacion, NOW() AS dia_hoy FROM usuario
+
+--DATEDIFF (diasdediferencia)
+27.SELECT nombre_usuario, id_persona, creacion, NOW() AS dia_hoy, DATEDIFF(NOW(),creacion)
+   AS diferencia FROM usuario

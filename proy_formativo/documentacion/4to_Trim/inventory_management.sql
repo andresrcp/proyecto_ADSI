@@ -10,23 +10,47 @@ CREATE TABlE categoria (
   PRIMARY KEY (id_categoria)
   ) ENGINE=InnoDB;
 
-CREATE TABlE usuario (
-  id_usuario INT(11) NOT NULL AUTO_INCREMENT,
+CREATE TABlE persona (
+  id_persona INT(11) NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(50),
   apellido VARCHAR(50),
+  telefono VARCHAR(50),
+  correo VARCHAR(50),
+  direccion VARCHAR(50),
+  tipo_persona INT(11),
+  PRIMARY KEY (id_persona)
+  ) ENGINE=InnoDB;
+
+CREATE TABlE rol (
+  id_rol INT(11) NOT NULL AUTO_INCREMENT,
+  cargo VARCHAR(45),
+  PRIMARY KEY (id_rol)
+  ) ENGINE=InnoDB;
+
+CREATE TABlE usuario (
+  id_usuario INT(11) NOT NULL AUTO_INCREMENT,
   nombre_usuario VARCHAR(50),
-  correo VARCHAR(20),
   contraseña VARCHAR(50),
   imagen VARCHAR(200),
   activo TINYINT,
   creacion DATETIME,
-  PRIMARY KEY (id_usuario)
+  id_persona INT(11) NOT NULL,
+  id_rol INT(11) NOT NULL,
+  PRIMARY KEY (id_usuario),
+  CONSTRAINT fk_usuario_id_persona
+  FOREIGN KEY (id_persona)
+  REFERENCES persona(id_persona)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+  CONSTRAINT fk_usuario_id_rol
+  FOREIGN KEY (id_rol)
+  REFERENCES rol(id_rol)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
   ) ENGINE=InnoDB;
 
 CREATE TABlE producto (
   id_producto INT(11) NOT NULL AUTO_INCREMENT,
-  id_categoria INT(11) NOT NULL,
-  id_usuario INT(11) NOT NULL,
   nombre VARCHAR(50),
   descripcion TEXT,
   min_inventario INT,
@@ -35,6 +59,9 @@ CREATE TABlE producto (
   presentacion VARCHAR(155),
   unidad VARCHAR(155),
   activo TINYINT,
+  id_categoria INT(11) NOT NULL,
+  id_usuario INT(11) NOT NULL,
+  cantidad_total INT(11),
   PRIMARY KEY (id_producto),
   CONSTRAINT fk_producto_id_categoria
   FOREIGN KEY (id_categoria)
@@ -54,27 +81,19 @@ CREATE TABlE tipo_operacion (
   PRIMARY KEY (id_tipoOperacion)
   ) ENGINE=InnoDB;
 
-CREATE TABlE persona (
-  id_persona INT(11) NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(50),
-  apellido VARCHAR(50),
-  telefono VARCHAR(50),
-  correo VARCHAR(50),
-  direccion VARCHAR(50),
-  tipo_persona INT(11),
-  PRIMARY KEY (id_persona)
-  ) ENGINE=InnoDB;
 
 CREATE TABlE caja (
   id_caja INT(11) NOT NULL AUTO_INCREMENT,
   creacion DATETIME,
+  dinero_base DOUBLE,
+  total_dia DOUBLE,
   PRIMARY KEY (id_caja)
   ) ENGINE=InnoDB;
 
 CREATE TABlE venta (
   id_venta INT(11) NOT NULL AUTO_INCREMENT,
-  total_venta DOUBLE,
-  cash DOUBLE,
+  total DOUBLE,
+  pago DOUBLE,
   descuento DOUBLE,
   id_persona INT(11) NOT NULL,
   id_usuario INT(11) NOT NULL,
