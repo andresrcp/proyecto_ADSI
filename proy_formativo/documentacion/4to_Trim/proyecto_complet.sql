@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS Proyecto DEFAULT CHARACTER SET utf8 ;
 USE Proyecto ;
 
 CREATE TABLE categoria (
-  id_categoria INT NOT NULL COMMENT 'identificador de la categoria',
+  id_categoria INT NOT NULL AUTO_INCREMENT COMMENT 'identificador de la categoria',
   imagen VARCHAR(200) NULL COMMENT 'imagen descriptiva de la categoria',
   nombre VARCHAR(50) NOT NULL DEFAULT 'new' COMMENT 'titulo de identificacion  de la categoria',
   descripcion TEXT NULL DEFAULT 'objects' COMMENT 'pequeña descripcion del contenido de la categoria',
@@ -12,7 +12,7 @@ ENGINE = InnoDB
 COMMENT = 'agrupaciones de algunos tipos de productos';
 
 CREATE TABLE `persona` (
-  `id_persona` INT NOT NULL COMMENT 'numero de identificacion de la persona, cedeula para persona natural y nit para personas juridicas.',
+  `id_persona` INT NOT NULL AUTO_INCREMENT COMMENT 'numero de identificacion de la persona, cedeula para persona natural y nit para personas juridicas.',
   `nombre` VARCHAR(60) NOT NULL DEFAULT 'name' COMMENT 'palabra o palabras que identifican a una persona (se puede repetir)',
   `apellido` VARCHAR(60) NOT NULL DEFAULT 'last name' COMMENT 'palabra o palabras que identifican a una persona (se puede repetir)',
   `telefono` VARCHAR(50) NOT NULL DEFAULT '1234567890' COMMENT 'numero de contacto de la persona',
@@ -41,20 +41,20 @@ CREATE TABLE `usuario` (
   `activo` TINYINT NOT NULL DEFAULT 1 COMMENT 'Bandera de confirmacion de usuario conectado',
   `creacion` DATETIME NOT NULL DEFAULT NOW() COMMENT 'fecha de creacion del usuario',
   `id_persona` INT NOT NULL COMMENT 'identificador de la persona',
-  `rol_id_rol` INT NOT NULL,
+  `id_rol` INT NOT NULL COMMENT 'identificador del rol o cargo',
   PRIMARY KEY (`id_usuario`),
   UNIQUE INDEX `id_usuario_UNIQUE` (`id_usuario` ASC),
   UNIQUE INDEX `nombre_usuario_UNIQUE` (`nombre_usuario` ASC),
   INDEX `fk_usuario_persona_idx` (`id_persona` ASC),
-  UNIQUE INDEX `rol_id_rol_UNIQUE` (`rol_id_rol` ASC),
-  UNIQUE INDEX `id_persona_UNIQUE` (`id_persona` ASC),
+  INDEX `rol_id_rol` (`id_rol` ASC),
+  UNIQUE INDEX `id_persona` (`id_persona` ASC),
   CONSTRAINT `fk_usuario_persona`
     FOREIGN KEY (`id_persona`)
     REFERENCES `Proyecto`.`persona` (`id_persona`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_rol`
-    FOREIGN KEY (`rol_id_rol`)
+    FOREIGN KEY (`id_rol`)
     REFERENCES `Proyecto`.`rol` (`id_rol`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE)
