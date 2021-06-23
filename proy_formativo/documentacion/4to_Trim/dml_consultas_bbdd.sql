@@ -174,6 +174,37 @@
 --------------------------------------------------------------------------------
 26. SELECT nombre_usuario, id_persona, creacion, NOW() AS dia_hoy FROM usuario
 
- DATEDIFF (diasdediferencia)
+--------------------------------------------------------------------------------
+--DATEDIFF (diasdediferencia)
+--------------------------------------------------------------------------------
 27.SELECT nombre_usuario, id_persona, creacion, NOW() AS dia_hoy, 
    DATEDIFF(NOW(),creacion) AS diferencia FROM usuario
+
+--------------------------------------------------------------------------------
+--join
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--seleccionar nombre de usuario y ver la informacion de la persona y cargo
+--------------------------------------------------------------------------------
+28.  SELECT usuario.nombre_usuario, persona.nombre, persona.apellido, rol.nombre 
+    FROM usuario inner join persona on usuario.id_persona = persona.id_persona
+    inner join rol on usuario.id_rol = rol.id_rol ORDER by id_rol
+
+--------------------------------------------------------------------------------
+--seleccionar id_venta, total_venta, nombre del producto y su cantidad vendida 
+--y ordenarlos por el id de la venta para listar los productos de cada venta
+--------------------------------------------------------------------------------
+29. SELECT venta.id_venta, venta.total_venta, producto.nombre, 
+    operacion.cant_producto FROM operacion INNER JOIN venta ON 
+    operacion.venta_id_venta = venta.id_venta INNER JOIN producto ON 
+    operacion.producto_id_producto = producto.id_producto ORDER BY venta.id_venta
+
+--------------------------------------------------------------------------------
+--selccionar nombre producto, presentacion producto, precio de venta por unidad y
+--nombre de la categoria del producto y ordenarlos por la categoria
+--------------------------------------------------------------------------------
+30. SELECT producto.nombre, producto.presentacion, producto.precio_venta, 
+    categoria.nombre FROM producto INNER JOIN categoria ON 
+    producto.categoria_id_categoria = categoria.id_categoria 
+    ORDER BY categoria.id_categoria

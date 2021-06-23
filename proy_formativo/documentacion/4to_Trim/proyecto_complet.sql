@@ -94,10 +94,10 @@ CREATE TABLE `venta` (
   INDEX `fk_venta_caja1_idx` (`caja_id_caja` ASC),
   INDEX `fk_venta_tipo_operacion1_idx` (`tipo_operacion_id_tipoOperacion` ASC),
   UNIQUE INDEX `id_venta_UNIQUE` (`id_venta` ASC),
-  UNIQUE INDEX `persona_id_persona_UNIQUE` (`persona_id_persona` ASC),
-  UNIQUE INDEX `usuario_id_usuario_UNIQUE` (`usuario_id_usuario` ASC),
-  UNIQUE INDEX `caja_id_caja_UNIQUE` (`caja_id_caja` ASC),
-  UNIQUE INDEX `tipo_operacion_id_tipoOperacion_UNIQUE` (`tipo_operacion_id_tipoOperacion` ASC),
+  INDEX `persona_id_persona_UNIQUE` (`persona_id_persona` ASC),
+  INDEX `usuario_id_usuario_UNIQUE` (`usuario_id_usuario` ASC),
+  INDEX `caja_id_caja_UNIQUE` (`caja_id_caja` ASC),
+  INDEX `tipo_operacion_id_tipoOperacion_UNIQUE` (`tipo_operacion_id_tipoOperacion` ASC),
   CONSTRAINT `fk_venta_persona1`
     FOREIGN KEY (`persona_id_persona`)
     REFERENCES `Proyecto`.`persona` (`id_persona`)
@@ -162,9 +162,9 @@ CREATE TABLE `operacion` (
   INDEX `fk_operacion_venta1_idx` (`venta_id_venta` ASC),
   INDEX `fk_operacion_tipo_operacion1_idx` (`tipo_operacion_id_tipoOperacion` ASC),
   UNIQUE INDEX `id_operacion_UNIQUE` (`id_operacion` ASC),
-  UNIQUE INDEX `producto_id_producto_UNIQUE` (`producto_id_producto` ASC),
-  UNIQUE INDEX `venta_id_venta_UNIQUE` (`venta_id_venta` ASC),
-  UNIQUE INDEX `tipo_operacion_id_tipoOperacion_UNIQUE` (`tipo_operacion_id_tipoOperacion` ASC),
+  INDEX `producto_id_producto_UNIQUE` (`producto_id_producto` ASC),
+  INDEX `venta_id_venta_UNIQUE` (`venta_id_venta` ASC),
+  INDEX `tipo_operacion_id_tipoOperacion_UNIQUE` (`tipo_operacion_id_tipoOperacion` ASC),
   CONSTRAINT `fk_operacion_producto1`
     FOREIGN KEY (`producto_id_producto`)
     REFERENCES `Proyecto`.`producto` (`id_producto`)
