@@ -60,7 +60,7 @@
 9. SELECT * FROM usuario WHERE creacion BETWEEN '2020-01-01' AND '2020-06-20' 
 
 --------------------------------------------------------------------------------
--- Seleccionar todos los campos de la tabla persona donde tipo_persona se igual 
+-- Seleccionar todos los campos de la tabla persona donde tipo_persona sea igual 
 -- a '1' Y '3' y que lo ordene por tipo_persona (Ascendente)
 --------------------------------------------------------------------------------
 10. SELECT * FROM persona WHERE tipo_persona = '1' OR tipo_persona = '3' ORDER BY
@@ -74,7 +74,7 @@
     tipo_persona DESC
 
 --------------------------------------------------------------------------------
--- Seleccionar todos los campos de la tabla persona donde tipo_persona se igual 
+-- Seleccionar todos los campos de la tabla persona donde tipo_persona sea igual 
 -- a '1' Y '3' y que lo ordene por direccion
 --------------------------------------------------------------------------------
 12. SELECT * FROM persona WHERE tipo_persona = '1' OR tipo_persona = '3' ORDER BY
@@ -110,47 +110,70 @@
 -- Seleccionar id_categoria(agrupación) y sumar el precio_venta de la tabla 
 -- producto y lo agrupe por id_categoria
 -------------------------------------------------------------------------------  
-17. SELECT id_categoria, SUM(precio_venta)FROM producto GROUP BY id_categoria
+17. SELECT id_categoria, SUM(precio_venta) FROM producto GROUP BY id_categoria
 
-
-
+-------------------------------------------------------------------------------
+-- Seleccionar id_categoria(agrupación) y sacar la media de precio_venta con el 
+-- alias media_venta de la tabla producto y lo agrupe por id_categoria donde 
+-- id_categoria sea igual a '1' Y (O) '6'
+-------------------------------------------------------------------------------  
 18.SELECT id_categoria, AVG(precio_venta) AS media_venta FROM producto GROUP BY
    id_categoria HAVING id_categoria = '1' OR id_categoria = '6' 
 
-
-
+-------------------------------------------------------------------------------
+-- Seleccionar id_categoria y sacar la media de precio_venta con el 
+-- alias media_venta de la tabla producto y lo agrupe por id_categoria donde 
+-- id_categoria sea igual a '1' Y (O) '6' y lo ordene por media_venta
+-------------------------------------------------------------------------------  
 19. SELECT id_categoria, AVG(precio_venta) AS media_venta FROM producto GROUP BY 
     id_categoria HAVING id_categoria = '1' OR id_categoria = '6' ORDER BY media_venta
 
-
-
+--------------------------------------------------------------------------------
+-- Seleccionar direccion, contar el tipo_persona de la tabla persona y agruparlo 
+-- por direccion
+--------------------------------------------------------------------------------
 20. SELECT direccion, COUNT(tipo_persona) FROM persona GROUP BY direccion
 
-
-
+--------------------------------------------------------------------------------
+-- Seleccionar id_categoria, sumar los precio_compra de la tabla producto y
+-- agruparlo por id_categoria
+--------------------------------------------------------------------------------
 21. SELECT id_categoria, MAX(precio_compra) FROM producto GROUP BY id_categoria
 
-
+--------------------------------------------------------------------------------
+-- Seleccionar id_categoria, sacar el maximo de precio_compra con el alias 
+-- precio_alto de la tabla producto y agruparlo por id_categoria y ordenarlos 
+-- por precio_alto
+--------------------------------------------------------------------------------
 22. SELECT id_categoria, MAX(precio_compra) AS precio_alto FROM producto 
     GROUP BY id_categoria ORDER BY precio_alto
 
-
-
+--------------------------------------------------------------------------------
+-- Seleccionar id_categoria, sacar el maximo de precio_venta de la tabla 
+-- producto donde id_catgoria sea igual a '4' y agruparlo por id_categoria
+--------------------------------------------------------------------------------
 23. SELECT id_categoria, MAX(precio_venta) FROM producto WHERE id_categoria = '4'
     GROUP BY id_categoria
 
-
--- IVA
-24.SELECT nombre, precio_venta, ROUND(precio_venta*1.19,2) AS precio_iva FROM 
+--------------------------------------------------------------------------------
+-- Seleccionar nombre, precio_venta, precio_venta por IVA con el alias
+-- precio_iva de la tabla producto
+--------------------------------------------------------------------------------
+24.SELECT nombre, precio_venta, (precio_venta*1.19) AS precio_iva FROM 
    producto
 
---Descuento
+--------------------------------------------------------------------------------
+-- Seleccionar nombre, precio_venta y sacar el descuento de 3% con el alias 
+-- precio_dto de la tabla producto
+--------------------------------------------------------------------------------
 25. SELECT nombre, precio_venta, precio_venta-3 AS precio_dto FROM producto
 
-
--- NOW() (diadehoy)
+--------------------------------------------------------------------------------
+-- Seleccionar nombre_usuario, id_persona y creacion donde se devuelva la hora 
+-- actual y fecha NOW() con el alias dia_hoy de la tabla usuario
+--------------------------------------------------------------------------------
 26. SELECT nombre_usuario, id_persona, creacion, NOW() AS dia_hoy FROM usuario
 
---DATEDIFF (diasdediferencia)
-27.SELECT nombre_usuario, id_persona, creacion, NOW() AS dia_hoy, DATEDIFF(NOW(),creacion)
-   AS diferencia FROM usuario
+ DATEDIFF (diasdediferencia)
+27.SELECT nombre_usuario, id_persona, creacion, NOW() AS dia_hoy, 
+   DATEDIFF(NOW(),creacion) AS diferencia FROM usuario
