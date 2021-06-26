@@ -166,7 +166,7 @@
 -- Seleccionar nombre, precio_venta y sacar el descuento de 3% con el alias 
 -- precio_dto de la tabla producto
 --------------------------------------------------------------------------------
-25. SELECT nombre, precio_venta, precio_venta-3 AS precio_dto FROM producto
+25. SELECT nombre, precio_venta, (precio_venta*0.03) AS precio_dto FROM producto
 
 --------------------------------------------------------------------------------
 -- Seleccionar nombre_usuario, id_persona y creacion donde se devuelva la hora 
@@ -208,3 +208,11 @@
     categoria.nombre FROM producto INNER JOIN categoria ON 
     producto.categoria_id_categoria = categoria.id_categoria 
     ORDER BY categoria.id_categoria
+
+--------------------------------------------------------------------------------
+--consulta de los datos de la persona (cliente o proveedor) que realiza la compra/venta
+--de productos y la informacion de la respectiva venta.
+--------------------------------------------------------------------------------
+31. SELECT venta.id_venta, venta.descuento, venta.total_venta, persona.nombre, 
+persona.apellido, persona.id_persona FROM venta INNER JOIN persona ON 
+venta.persona_id_persona = persona.id_persona
